@@ -1,4 +1,4 @@
-const API_KEY = "06d000125c4026b085bc5354974e569a"; 
+const API_KEY = ""; 
 const areaInput = document.querySelector(".areaInput");
 const weatherDisplay = document.querySelector(".showsWeather");
 
