@@ -6,11 +6,29 @@ const cors = require("cors");
 const axios = require("axios");
 
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
+
+const cropData = {
+    "Sunny": {
+        "10-20°C": ["Wheat", "Barley", "Mustard"],
+        "20-30°C": ["Maize", "Sorghum", "Sunflower"],
+        "30-40°C": ["Rice", "Millets", "Sugarcane"]
+    },
+    "Rainy": {
+        "10-20°C": ["Peas", "Lettuce", "Cauliflower"],
+        "20-30°C": ["Paddy", "Soybean", "Groundnut"],
+        "30-40°C": ["Banana", "Turmeric", "Jute"]
+    },
+    "Cold": {
+        "0-10°C": ["Carrots", "Cabbage", "Spinach"],
+        "10-20°C": ["Wheat", "Oats", "Chickpeas"]
+    }
+};
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../views"));
 
+app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cors());
@@ -21,5 +39,5 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-    res.render("home"); 
+    res.render("home",{cropData}); 
 });
