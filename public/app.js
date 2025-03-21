@@ -1,4 +1,4 @@
-const fetch_weather_btn = document.querySelector("fetch-weather-btn");
+const fetch_weather_btn = document.querySelector(".fetch-weather-btn");
 const locationInput = document.querySelector(".location-input");
 const weatherData = document.querySelector(".weather-data");
 const cropData = document.querySelector(".crop-data");
@@ -8,6 +8,7 @@ async function getWeather(city) {
 
     try {
         const res = await axios.get(url);
+        console.log(res.data);
         weatherData.textContent = `Weather in ${city}: ${res.data}`;
     } catch (e) {
         weatherData.textContent = "Error fetching weather data.";
