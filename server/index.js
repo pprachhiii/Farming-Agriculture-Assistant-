@@ -38,6 +38,19 @@ app.listen(port, () => {
     console.log(`Server is listening at port ${port}`);
 });
 
+app.locals.cache = false;
+
 app.get("/", (req, res) => {
-    res.render("home",{cropData}); 
+    res.render("home", { cache: false, timestamp: new Date().getTime() });
 });
+
+
+// app.get("/crop",(req,res)=>{
+//     res.render("crop",{cropData});
+// });
+
+// app.post("/crop",(req,res)=>{
+//     console.log(req.body);
+//     res.send("post server is working");   
+// });
+
