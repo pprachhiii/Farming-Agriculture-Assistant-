@@ -22,6 +22,11 @@ const cropData = {
     "Cold": {
         "0-10°C": ["Carrots", "Cabbage", "Spinach"],
         "10-20°C": ["Wheat", "Oats", "Chickpeas"]
+    },
+    "Haze": {
+        "10-20°C": ["Garlic", "Onion", "Fenugreek"],
+        "20-30°C": ["Tomato", "Brinjal", "Okra"],
+        "30-40°C": ["Chili", "Cucumber", "Pumpkin"]
     }
 };
 
@@ -38,19 +43,27 @@ app.listen(port, () => {
     console.log(`Server is listening at port ${port}`);
 });
 
-app.locals.cache = false;
 
 app.get("/", (req, res) => {
-    res.render("home", { cache: false, timestamp: new Date().getTime() });
+    res.render("home");
 });
 
+app.get("/crop",(req,res)=>{
+    res.render("crop",{cropData});
+});
 
-// app.get("/crop",(req,res)=>{
-//     res.render("crop",{cropData});
-// });
+app.post("/crop",(req,res)=>{
+    let {city,weatherCondition,temperature} = (req.body);
+    let tempRange = Object.keys(cropData[weatherCondition] || {}).find(range => {
+        let [min, max] = range.replace("°C", "").split("-").map(Number);
+        return temperature >= min && temperature <= max;
+    });
+    let crops = tempRange ? cropData[weatherCondition][tempRange] : [];
+    res.render("crop", {city ,crops}); 
+});
 
-// app.post("/crop",(req,res)=>{
-//     console.log(req.body);
-//     res.send("post server is working");   
-// });
+app.get("/back", (req, res) => {
+    res.redirect("/");
+});
+
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation</title>
+</head>
+<body>
+    <h2>City: <%= city %></h2>
+
+    <% if (crops.length > 0) { %>
+        <h3>Recommended Crops:</h3>
+        <ul>
+            <% crops.forEach(crop => { %>
+                <li><%= crop %></li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No crops found for this weather condition and temperature.</p>
+    <% } %>
+
+    <a href="/back">Go Back</a>
+</body>
+</html>
