@@ -1,31 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crop</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <main>
-        <h2 class="title">Farming-Assistant</h2>
-        <form method="post" action="/crop">
-
-            <input type="text" id="location" class="location-input" placeholder="Enter city or region" required>
-            <button type="button" class="fetch-weather-btn">Get Weather</button>
-        
-        <section class="weather-info">
-            <h2>Weather Details</h2>
-            <p class="weather-data"></p>
-        </section>
-        <button type="submit" id="get-crop-btn">Get Crop Recommendation</button>
-
+<main>
+    <h2 class="title">Farming-Assistant</h2>
+    <form method="post" action="/" id="weather-form">
+        <input type="text" id="location" class="location-input" placeholder="Enter city or region" name="city" required>
+        <button type="submit" class="fetch-weather-btn">Get Weather</button>
     </form>
-    </main>
 
-    <script src="/app.js"></script>
+    <% if (forecast) { %>
+        <section class="weather-info">
+            <h2>5-Day Weather Forecast for <%= city %></h2>
+            <% forecast.forEach(day => { %>
+                <div class="weather-card">
+                    <p><strong>Date:</strong> <%= day.date %></p>
+                    <p><strong>Condition:</strong> <%= day.weatherCondition %></p>
+                    <p><strong>Temperature:</strong> <%= day.temperature %>°C</p>
+                    <img src="<%= day.icon %>" alt="Weather Icon">
+                </div>
+            <% }) %>
 
-</body>
-</html>
+            <!-- Hidden inputs for crop recommendation -->
+            <form method="post" action="/crop">
+                <input type="hidden" name="city" value="<%= city %>">
+                <input type="hidden" name="weatherCondition" value="<%= forecast[0].weatherCondition %>">
+                <input type="hidden" name="temperature" value="<%= forecast[0].temperature %>">
+                <button type="submit">Get Crop Recommendation</button>
+            </form>
+        </section>
+    <% } %>
+</main>
