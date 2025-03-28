@@ -5,8 +5,10 @@ const axios = require("axios");
 const mysql = require("mysql2");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
+const dbUrl = process.env.DATABASE_URL;
+
 const pool = mysql.createPool({
-    url: process.env.DATABASE_URL,
+    uri: dbUrl,
     waitForConnections: true,
     connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
     queueLimit: 0
