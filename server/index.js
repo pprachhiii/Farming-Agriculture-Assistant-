@@ -2,7 +2,18 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const axios = require("axios");
+const mysql = require("mysql2");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    waitForConnections: true,
+    connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
+    queueLimit: 0
+}).promise();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -59,25 +70,40 @@ app.post("/", async (req, res) => {
         res.render("home", { forecast: null, city: null, error: "Unable to fetch weather data." });
     }
 });
-
 // Crop Recommendation Route
 app.get("/crop", (req, res) => {
-    res.render("crop", { crops: null });
+    res.render("crop", { crops: null, city: null, weatherCondition: null, temperature: null, error: null });
 });
 
 app.post("/crop", async (req, res) => {
-    const { city, weatherCondition, temperature } = req.body;
+    const { city, weatherCondition, temperature ,soil} = req.body;
+    
+    if (!city || !soil) {
+        return res.render("crop", { crops: null, city, weatherCondition, temperature, error: "Please enter a valid city and select a soil type!" });
+    }
 
-    // Dummy crop recommendation logic (You can replace it with real logic)
-    const cropRecommendations = {
-        "clear sky": ["Wheat", "Corn", "Rice"],
-        "rain": ["Rice", "Sugarcane", "Soybean"],
-        "snow": ["Carrots", "Potatoes", "Cabbage"]
-    };
+    try {
+        // Query to fetch recommended crops based on city and soil type
+        const [rows] = await pool.query(
+            `SELECT recommended_crops FROM crop_recommendations 
+             WHERE city = ? 
+             AND FIND_IN_SET(?, REPLACE(soil_types, '|', ','))`, 
+            [city, soil]
+        );
 
-    const crops = cropRecommendations[weatherCondition] || ["General Crops"];
+        if (rows.length === 0) {
+            return res.json({ error: "No suitable crops found for this city and soil type." });
+        }
 
-    res.render("crop", { city, crops });
+        const recommendedCrops = rows[0].recommended_crops.split("|");
+
+        res.render("crop", { crops: recommendedCrops, city, weatherCondition, temperature, error: null });
+
+    } catch (error) {
+        console.error("Database error:", error);
+        res.render("crop", { crops: null, city, weatherCondition, temperature, error: "Error retrieving crop data from the database." });
+    }
+
 });
 
 app.listen(port, () => {

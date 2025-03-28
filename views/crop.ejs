@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crop Recommendation</title>
-</head>
-<body>
-    <h2>City: <%= city %></h2>
+<main>
+    <h2 class="title">Farming-Assistant</h2>
+    <form action="/crop" method="POST">
+        <label for="soil">Select Soil Type:</label>
+        <select name="soil" id="soil">
+            <option value="sandy">Sandy</option>
+            <option value="clay">Clay</option>
+            <option value="loamy">Loamy</option>
+            <option value="silty">Silty</option>
+        </select>
+        <input type="hidden" name="city" value="<%= city %>">
+        <input type="hidden" name="weatherCondition" value="<%= weatherCondition %>">
+        <input type="hidden" name="temperature" value="<%= temperature %>">
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
     <% if (crops) { %>
-        <h3>Recommended Crops:</h3>
-        <p><%= crops %></p>
-    <% } else { %>
-        <p>No crops found for this weather condition and temperature.</p>
+        <h2>Recommended Crops for <%= city %> (Weather: <%= weatherCondition %>, Temp: <%= temperature %>°C)</h2>
+        <ul>
+            <% crops.forEach(crop => { %>
+                <li><%= crop %></li>
+            <% }) %>
+        </ul>
     <% } %>
-
-    
-    <a href="/back">Go Back</a>
-
-    <script src="/app.js"></script>
-
-</body>
-</html>
+        
+</main>
