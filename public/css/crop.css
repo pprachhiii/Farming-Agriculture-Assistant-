@@ -1,0 +1,161 @@
+   
+#crop-form {
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    padding: 20px;
+    width: 400px; /* Reduced width for compactness */
+    margin: 20px auto; /* Center horizontally */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+}
+#crop-form label {
+    font-size: 18px;
+}
+/* Input Styling */
+#crop-form select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Button styling inside crop form */
+.fetch-crop-btn {
+    width: 100%;  /* Full width for better alignment */
+    padding: 12px;
+    font-size: 16px;
+    background-color: #945034; /* Dark Green for the button */
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px; /* Space between dropdown and button */
+    display: block;
+}
+.loader {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
+/* Hover effect on crop button */
+.fetch-crop-btn:hover {
+    background-color: #a55d3f; /* Light Blue for hover effect */
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* crop display section */
+.crop-info {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;  /* Center items horizontally */
+    justify-content: center; /* Center content vertically */
+    margin: 30px auto; /* Auto centers horizontally */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjust width for responsiveness */
+    max-width: 1200px; /* Prevent it from stretching too wide */
+    text-align: center;
+    
+}
+    
+.crop-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* crop Cards for Each Day */
+.crop-cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Ensures wrapping on small screens */
+    justify-content: center;
+    gap: 15px; /* Adds spacing between crop cards */
+    width: 100%;
+    max-width: 1200px;
+}
+
+.crop-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1 1 auto; /* Allow growing */
+    min-width: 180px;
+    max-width: 220px;    
+    height:auto;
+    margin: 5px;
+}
+
+.crop-form-container {
+    display: flex;
+    justify-content: center; /* Centers the button */
+    margin-top: 20px; /* Space between crop cards and button */
+}
+
+
+.crop-card p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.crop-card img {
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+/* Crop Recommendation Form */
+form input[type="hidden"] {
+    display: none;
+}
+
+form button {
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect on crop recommendation button */
+form button:hover {
+    background-color: #5F99AE;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .title h1 {
+        font-size: 40px;  /* Reduce font size */
+    }
+
+    .intro p {
+        font-size: 24px;  /* Reduce paragraph font size */
+    }
+
+    .intro button {
+        font-size: 24px;  /* Adjust button font size */
+        padding: 10px 20px;  /* Adjust padding for smaller buttons */
+    }
+
+    #crop-form {
+        width: 90%; /* Adjust form width for smaller screens */
+    }
+} 

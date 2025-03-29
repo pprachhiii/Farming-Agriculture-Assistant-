@@ -1,27 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("#weather-form");
-    const locationInput = document.querySelector(".location-input");
-    const weatherSection = document.querySelector(".weather-info");
-    const loader = document.createElement("div");
+    const cropForm = document.querySelector("#crop-form");
+    
+    cropForm.addEventListener("submit", (event) => {
+        console.log("Form submitted!");
+        
+        // Debugging logs
+        const city = document.querySelector("input[name='city']").value;
+        const soil = document.querySelector("#soil").value;
 
-    loader.innerHTML = "Fetching Weather...⏳";
-    loader.classList.add("loader");
-    loader.style.display = "none";
-    form.insertAdjacentElement("afterend", loader);
+        console.log("City:", city);
+        console.log("Soil:", soil);
 
-    form.addEventListener("submit", async (event) => {
-        if (!locationInput.value.trim()) {
-            event.preventDefault();
-            alert("Please enter a city or region.");
-            return;
+        if (!soil) {
+            alert("Please select a soil type.");
+            event.preventDefault();  // Stop form submission if soil is missing
         }
-
-        loader.style.display = "block"; // Show loader
-        weatherSection.style.display = "none"; // Hide previous weather info
     });
-
-    if (weatherSection) {
-        weatherSection.style.display = "block";
-        loader.style.display = "none"; // Hide loader when data is loaded
-    }
 });

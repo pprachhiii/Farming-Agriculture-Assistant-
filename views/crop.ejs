@@ -1,27 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/crop.css">
+</head>
+<body style="background-color:#FFDDAB;">
 <main>
-    <h2 class="title">Farming-Assistant</h2>
-    <form action="/crop" method="POST">
+    <form action="/crop" method="POST" id="crop-form">
         <label for="soil">Select Soil Type:</label>
-        <select name="soil" id="soil">
+        <select name="soil" id="soil" required>
+            <option value="">-- Select Soil Type --</option>
             <option value="sandy">Sandy</option>
             <option value="clay">Clay</option>
             <option value="loamy">Loamy</option>
             <option value="silty">Silty</option>
         </select>
+        
         <input type="hidden" name="city" value="<%= city %>">
         <input type="hidden" name="weatherCondition" value="<%= weatherCondition %>">
         <input type="hidden" name="temperature" value="<%= temperature %>">
-
-        <button type="submit">Get Recommendations</button>
+    
+        <button type="submit" class="fetch-crop-btn">Get Recommendations</button>
     </form>
 
+
     <% if (crops) { %>
-        <h2>Recommended Crops for <%= city %> (Weather: <%= weatherCondition %>, Temp: <%= temperature %>°C)</h2>
-        <ul>
-            <% crops.forEach(crop => { %>
-                <li><%= crop %></li>
-            <% }) %>
-        </ul>
+        <section class="crop-info">
+            <h2>Recommended Crops for <%= city %> (Weather: <%= weatherCondition %>, Temp: <%= temperature %>°C)</h2>
+            <div class="crop-cards-container"> 
+                <% crops.forEach(({ crop, image }) => { %>
+                    <div class="crop-card"> 
+                        <% if (image) { %>
+                            <img src="<%= image %>" alt="<%= crop %>">
+                        <% } else { %>
+                            <p>No image available</p>
+                        <% } %>
+                            <p><%= crop %></p>
+                            <a href="/crop/<%= crop %>?city=<%= city %>&weatherCondition=<%= weatherCondition %>&temperature=<%= temperature %>" class="know-more-btn">
+                                Know More
+                            </a>
+                               
+                </div>
+                <% }) %>
+            </div>
+
+                
+        </section>
     <% } %>
-        
 </main>
+<script src="/app.js"></script>
+</body>
+</html>

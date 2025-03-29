@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+    background-color: #4CAF50; /* Green background */
+
+}
+
+/* Title Section - Background color for nature theme */
+.title {
+    height: 40vh;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    padding: 0 20px;  
+}
+
+.title h1 {
+    font-size: 60px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Intro Section Styling */
+.intro {
+    background-color: #FFDDAB; /* Light Peach */
+    height: 60vh;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Paragraph inside intro */
+.intro p {
+    font-size: 25px;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    margin-top: 0;
+}
+
+/* Button Styling for intro */
+.intro button {
+    padding: 12px 30px;
+    font-size: 28px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.intro button:hover {
+    background-color: #4CAF50;  
+    color: #fff;  
+    transform: scale(1.1);
+}
+@media (max-width: 768px) {
+    .title h1 {
+        font-size: 40px;  /* Reduce font size */
+    }
+
+    .intro p {
+        font-size: 24px;  /* Reduce paragraph font size */
+    }
+
+    .intro button {
+        font-size: 24px;  /* Adjust button font size */
+        padding: 10px 20px;  /* Adjust padding for smaller buttons */
+    }
+
+}

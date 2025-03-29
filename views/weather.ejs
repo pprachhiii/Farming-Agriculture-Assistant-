@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/weather.css">
+</head>
+<body style="background-color: #EC7FA9;">
+    <main>
+        <form method="post" action="/weather" id="weather-form">
+            <input type="text" id="location" class="location-input" placeholder="Enter city or region" name="city" required>
+            <button type="submit" class="fetch-weather-btn">Get Weather</button>
+        </form>
+        
+
+        <% if (forecast) { %>
+            <section class="weather-info">
+                <h2>5-Day Weather Forecast for <%= city %></h2>
+                
+                <!-- Weather Cards Container -->
+                <div class="weather-cards-container"> 
+                    <% forecast.forEach(day => { %>
+                        <div class="weather-card">
+                            <p><strong>Date:</strong> <%= day.date %></p>
+                            <p><strong>Condition:</strong> <%= day.weatherCondition %></p>
+                            <p><strong>Temperature:</strong> <%= day.temperature %>°C</p>
+                            <img src="<%= day.icon %>" alt="Weather Icon">
+                        </div>
+                    <% }) %>
+                </div>
+        
+                <!-- Crop Recommendation Form (in a new row) -->
+                <div class="crop-form-container">
+                    <form method="post" action="/crop">
+                        <input type="hidden" name="city" value="<%= city %>">
+                        <input type="hidden" name="weatherCondition" value="<%= forecast[0].weatherCondition %>">
+                        <input type="hidden" name="temperature" value="<%= forecast[0].temperature %>">
+                        <button type="submit">Get Crop Recommendation</button>
+                    </form>
+                </div>
+            </section>
+        <% } %>
+        </main>
+    <script src="/app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,145 @@
+#weather-form {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    padding: 20px;
+    width: 400px; /* Reduced width for compactness */
+    margin: 20px auto; /* Center horizontally */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+}
+
+/* Input Styling */
+#weather-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    transition: border 0.3s ease;
+}
+
+/* Focus effect on input */
+#weather-form input:focus {
+    border: 1px solid #4CAF50; /* Green border on focus */
+    outline: none;  /* Remove default outline */
+}
+
+/* Button styling inside weather form */
+.fetch-weather-btn {
+    width: 100%;  /* Full width for better alignment */
+    padding: 12px;
+    font-size: 16px;
+    background-color:#EC7FA9; 
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.loader {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
+/* Hover effect on weather button */
+.fetch-weather-btn:hover {
+    background-color: #BE5985; /* Light Blue for hover effect */
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Weather display section */
+.weather-info {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;  /* Center items horizontally */
+    justify-content: center; /* Center content vertically */
+    margin: 30px auto; /* Auto centers horizontally */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjust width for responsiveness */
+    max-width: 1200px; /* Prevent it from stretching too wide */
+    text-align: center;
+}
+    
+.weather-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Weather Cards for Each Day */
+.weather-cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Ensures wrapping on small screens */
+    justify-content: center;
+    gap: 15px; /* Adds spacing between weather cards */
+}
+
+.weather-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+}
+
+.crop-form-container {
+    display: flex;
+    justify-content: center; /* Centers the button */
+    margin-top: 20px; /* Space between weather cards and button */
+}
+
+
+.weather-card p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.weather-card img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Crop Recommendation Form */
+form input[type="hidden"] {
+    display: none;
+}
+
+form button {
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect on crop recommendation button */
+form button:hover {
+    background-color: #5F8B4C;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    #weather-form {
+        width: 90%; /* Adjust form width for smaller screens */
+    }
+} 

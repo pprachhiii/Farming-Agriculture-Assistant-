@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Details</title>
+    <link rel="stylesheet" href="/css/show.css">
+</head>
+<body>
+    <div class="container">
+        <% if (crop) { %>
+            <h2><%= crop.crop_name %> Details</h2>
+            <div class="crop-details">
+                <% if (crop.image) { %>
+                    <img src="<%= crop.image %>" alt="<%= crop.crop_name %>" class="crop-image">
+                <% } %>
+                <p><strong>Best Season:</strong> <%= crop.best_season %></p>
+                <p><strong>Ideal Temperature:</strong> <%= crop.ideal_temp_min %>°C - <%= crop.ideal_temp_max %>°C</p>
+                <p><strong>Ideal Soil Type:</strong> <%= crop.ideal_soil %></p>
+                <p><strong>Watering Frequency:</strong> <%= crop.watering_frequency %></p>
+                <p><strong>Common Diseases:</strong> <%= crop.common_diseases %></p>
+                <p><strong>Recommended Fertilizers:</strong> <%= crop.fertilizers %></p>
+                <p><strong>Care Tips:</strong> <%= crop.care_tips %></p>
+            </div>
+            <a href="/back" class="back-btn">Back</a>
+            <% } else { %>
+            <h2>Crop Details Not Found</h2>
+            <a href="/back" class="back-btn">Back</a>
+        <% } %>
+    </div>
+</body>
+</html>

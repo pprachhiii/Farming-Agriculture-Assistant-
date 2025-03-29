@@ -5,10 +5,11 @@ const axios = require("axios");
 const mysql = require("mysql2");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-const dbUrl = process.env.DATABASE_URL;
-
 const pool = mysql.createPool({
-    uri: dbUrl,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
     queueLimit: 0
@@ -27,17 +28,22 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.render("home", { forecast: null, city: null, error: null });
+    res.render("home");
+});
+app.get("/weather", (req, res) => {
+    res.render("weather", { forecast: null, city: null, error: null });
 });
 app.get("/back", (req, res) => {
-    res.render("home", { forecast: null, city: null, error: null });
+    res.render("weather", { forecast: null, city: null, error: null });
 });
 
-app.post("/", async (req, res) => {
+app.post("/weather", async (req, res) => {
     const city = req.body.city;
-    
+
+    console.log("City received in /weather route:", city); // Debugging
+
     if (!city) {
-        return res.render("home", { forecast: null, city: null, error: "Please enter a city name!" });
+        return res.render("weather", { forecast: null, city: null, error: "Please enter a city name!" });
     }
 
     try {
@@ -63,48 +69,99 @@ app.post("/", async (req, res) => {
             }
         });
 
-        res.render("home", { city, forecast: dailyForecast, error: null });
+        res.render("weather", { city, forecast: dailyForecast, error: null });
     } catch (error) {
         console.error("Error fetching weather data:", error);
-        res.render("home", { forecast: null, city: null, error: "Unable to fetch weather data." });
+        res.render("weather", { forecast: null, city: null, error: "Unable to fetch weather data." });
     }
 });
 // Crop Recommendation Route
 app.get("/crop", (req, res) => {
+    
     res.render("crop", { crops: null, city: null, weatherCondition: null, temperature: null, error: null });
+});
+app.get("/crop/:recommended", async (req, res) => {
+    const { recommended } = req.params;
+    const { city, weatherCondition, temperature } = req.query; // Get data from URL
+
+    try {
+        const query = "SELECT * FROM crop_care_tips WHERE crop_name = ?";
+        const [rows] = await pool.query(query, [recommended]);
+
+        if (rows.length === 0) {
+            return res.render("show", { 
+                crop: null, city, weatherCondition, temperature,
+                error: "No care tips found for this crop." 
+            });
+        }
+
+        const cropDetails = rows[0];
+
+        res.render("show", { crop: cropDetails, city, weatherCondition, temperature, error: null });
+
+    } catch (error) {
+        console.error("Error fetching crop care tips:", error);
+        res.render("show", { crop: null, city, weatherCondition, temperature, error: "An error occurred while fetching crop details." });
+    }
 });
 
 app.post("/crop", async (req, res) => {
     const { city, weatherCondition, temperature ,soil} = req.body;
-    
+
     if (!city || !soil) {
         return res.render("crop", { crops: null, city, weatherCondition, temperature, error: "Please enter a valid city and select a soil type!" });
     }
 
     try {
         // Query to fetch recommended crops based on city and soil type
-        const [rows] = await pool.query(
-            `SELECT recommended_crops FROM crop_recommendations 
-             WHERE city = ? 
-             AND FIND_IN_SET(?, REPLACE(soil_types, '|', ','))`, 
-            [city, soil]
-        );
+        const query = `SELECT recommended_crops FROM crop_recommendations 
+        WHERE city = ? 
+        AND FIND_IN_SET(?, REPLACE(soil_types, '|', ','))`;
+
+        const [rows] = await pool.query(query, [city, soil]);
 
         if (rows.length === 0) {
-            return res.json({ error: "No suitable crops found for this city and soil type." });
+        return res.render("crop", { crops: null, city, weatherCondition, temperature, error: "No suitable crops found for this city and soil type." });
         }
 
         const recommendedCrops = rows[0].recommended_crops.split("|");
 
-        res.render("crop", { crops: recommendedCrops, city, weatherCondition, temperature, error: null });
+        const cropImages = await getImagesForCrops(recommendedCrops);
+
+        res.render("crop", { crops: cropImages, city, weatherCondition, temperature, error: null });
 
     } catch (error) {
         console.error("Database error:", error);
         res.render("crop", { crops: null, city, weatherCondition, temperature, error: "Error retrieving crop data from the database." });
     }
-
 });
+async function getImagesForCrops(crops){
+    const url = 'https://api.pexels.com/v1/search';
+    const apiKey = process.env.PIXELS_API_KEY;
+    try{
+        const imageResults = await Promise.all(crops.map(async (crop) => {
+            try {
+                const res = await axios.get(url, {
+                    headers: { Authorization: apiKey },
+                    params: { query: crop, per_page: 1 }
+                });
 
+                return {
+                    crop: crop,  
+                    image: res.data.photos.length > 0 ? res.data.photos[0].src.medium : null
+                };
+            } catch (error) {
+                console.error(`Error fetching image for ${crop}:`, error);
+                return { crop: crop, image: null };
+            }
+        }));
+
+        return imageResults;
+    } catch (e) {
+        console.error("Error fetching images:", e);
+        return crops.map(crop => ({ crop, image: null }));
+    }
+}
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
