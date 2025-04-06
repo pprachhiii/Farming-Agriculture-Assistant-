@@ -9,6 +9,7 @@ const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
     database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
@@ -37,6 +38,27 @@ app.get("/back", (req, res) => {
     res.render("weather", { forecast: null, city: null, error: null });
 });
 
+app.get("/test-db", async (req, res) => {
+    try {
+      const [rows] = await pool.query("SHOW TABLES");
+      console.log("Connecting to DB with config:", {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        port: process.env.DB_PORT,
+      });
+      
+      res.json(rows);
+    } catch (err) {
+      console.error("DB test error:", err);
+      console.log("Connecting to DB with config:", {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        port: process.env.DB_PORT,
+      });      
+      res.status(500).send("DB connection failed.");
+    }
+  });
+  
 app.post("/weather", async (req, res) => {
     const city = req.body.city;
 
