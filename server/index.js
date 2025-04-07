@@ -5,7 +5,15 @@ const axios = require("axios");
 const mysql = require("mysql2");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-const pool = mysql.createPool(process.env.DATABASE_URL).promise();
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    waitForConnections: true,
+    queueLimit: 0
+}).promise();
 
 const app = express();
 const port = process.env.PORT || 3000;
