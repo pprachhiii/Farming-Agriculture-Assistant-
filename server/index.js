@@ -5,12 +5,8 @@ const axios = require("axios");
 const mysql = require("mysql2");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-const pool = mysql.createPool({
-    uri: process.env.DATABASE_URL,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-}).promise();
+const pool = mysql.createPool(process.env.DATABASE_URL).promise();
+
 const app = express();
 const port = process.env.PORT || 3000;
 const apiKey = process.env.OPEN_WEATHER_MAP_API_KEY;
