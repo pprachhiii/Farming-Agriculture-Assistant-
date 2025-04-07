@@ -6,16 +6,11 @@ const mysql = require("mysql2");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
+    uri: process.env.DATABASE_URL,
     waitForConnections: true,
-    connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
+    connectionLimit: 10,
     queueLimit: 0
 }).promise();
-
 const app = express();
 const port = process.env.PORT || 3000;
 const apiKey = process.env.OPEN_WEATHER_MAP_API_KEY;
