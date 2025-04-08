@@ -6,46 +6,46 @@
 
 ## 🚀 Features
 
-- 🌤️ **Weather Forecast** – Get live 5-day weather forecasts via OpenWeather API  
-- 📍 **City-Based Input** – Enter your city to get localized climate data  
-- 🌱 **Crop Recommendation** – Input your soil type to receive ideal crop suggestions from a MySQL database  
-- 🖼️ **Crop Visuals** – See images of suggested crops using Pexels  
-- 📖 **Know More** – Learn crop care tips retrieved dynamically from the database  
-- ✅ Clean structure, modular code, and EJS-based rendering for fast development  
+- ☀️ **Weather Forecast** – Get live 5-day weather forecasts via OpenWeather API
+- 📍 **City-Based Input** – Enter your city to get localized climate data
+- 🌱 **Crop Recommendation** – Input your soil type to receive ideal crop suggestions from a MySQL database
+- 🖼️ **Crop Visuals** – See images of suggested crops using Pexels
+- 📖 **Know More** – Learn crop care tips retrieved dynamically from the database
+- ✅ Clean structure, modular code, and EJS-based rendering for fast development
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Node.js, Express.js  
-- **Database:** MySQL (using `mysql2` and connection pooling)  
-- **APIs Used:** 
-  - [OpenWeatherMap](https://openweathermap.org/api) for weather data  
-  - [Pexels](https://www.pexels.com/api/) for crop images  
-- **Frontend:** EJS templates, HTML5, CSS3, Vanilla JS  
-- **Other:** dotenv for env management, Axios for API calls, CORS enabled  
+- **Backend:** Node.js, Express.js
+- **Database:** MySQL (using `mysql2` and connection pooling)
+- **APIs Used:**
+  - [OpenWeatherMap](https://openweathermap.org/api) for weather data
+  - [Pexels](https://www.pexels.com/api/) for crop images
+- **Frontend:** EJS templates, HTML5, CSS3, Vanilla JS
+- **Other:** dotenv for env management, Axios for API calls, CORS enabled
 
 ---
 
 ## 📁 Folder Structure
 
 ```
-FasalForecast/
-│
-├── public/                 # Static assets
-│   ├── css/                # Stylesheets
-│   └── js/                 # Client-side JS
-│
-├── server/                 # Server logic
-│   └── index.js            # Express app entry point
-│
-├── views/                  # EJS templates & optional PDFs
-│   └── crops.pdf
-│
-├── .env                    # Environment variables
-├── package-lock.json       # Auto-generated lockfile for exact dependency versions
-├── package.json            # Project metadata and dependencies
-└── README.md               # You're reading it!
+Farming-Agriculture-Assistant/
+️
+🗄️ public/                 # Static assets
+📌 css/                # Stylesheets
+📊 js/                 # Client-side JS
+
+🚦 server/                 # Server logic
+🔢 index.js            # Express app entry point
+
+📄 views/                  # EJS templates & optional PDFs
+🔢 crops.pdf
+
+.env                    # Environment variables
+package-lock.json       # Auto-generated lockfile for exact dependency versions
+package.json            # Project metadata and dependencies
+README.md               # You're reading it!
 ```
 
 ---
@@ -95,6 +95,22 @@ Then go to:
 
 ---
 
+### 🔗 Live Demo
+
+Check out the live app here: [FasalForecast Web App](https://farming-agriculture-assistant-production.up.railway.app)
+
+## 📸 Screenshots
+
+### 📋 Weather Page
+
+![Weather Page](./images/weather.png.png)  
+_Easily create invoices with dynamic line item calculation._
+
+### 📊 Dashboard View
+
+![Soil-Recommendation Page](./images/soil.png)  
+_Quick overview of all your invoices and their statuses._
+
 ## 🧪 Sample Usage
 
 1. **Weather Page:**  
@@ -111,6 +127,7 @@ Then go to:
 ## 🗃️ MySQL Tables (Example)
 
 - `crop_recommendations`
+
   ```sql
   CREATE TABLE crop_recommendations (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -155,15 +172,21 @@ node_modules/
 
 ## 💡 Future Enhancements
 
-- 🌐 Add multi-language support  
-- 🧠 Integrate ML-based recommendation logic  
-- 🧕 User login and saved recommendations  
-- 📄 Export crop suggestions to PDF  
-- 📨 Email recommendations to users  
+- 🌐 Add multi-language support
+- 🧠 Integrate ML-based recommendation logic
+- 🧕 User login and saved recommendations
+- 📄 Export crop suggestions to PDF
+- 📨 Email recommendations to users
 
 ---
 
 ## 📬 Contact
 
-Made with ❤️ by **Prachi Yadav**  
+Made with ❤️ by **Prachi Yadav**
+
 > Want to contribute or report an issue? Fork this repo or open an issue on GitHub!
+
+## 🪪 License
+
+MIT — Copyright © 2025 Prachi Yadav
+See [LICENSE](./LICENSE) for full text.
