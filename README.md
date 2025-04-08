@@ -103,13 +103,11 @@ Check out the live app here: [FasalForecast Web App](https://farming-agriculture
 
 ### 📋 Weather Page
 
-![Weather Page](./images/weather.png.png)  
-_Easily create invoices with dynamic line item calculation._
+![Weather Page](./images/weather.png.png)
 
-### 📊 Dashboard View
+### 📊 Soil-Recommendation Page
 
-![Soil-Recommendation Page](./images/soil.png)  
-_Quick overview of all your invoices and their statuses._
+![Soil-Recommendation Page](./images/soil.png)
 
 ## 🧪 Sample Usage
 
