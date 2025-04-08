@@ -31,21 +31,38 @@
 
 ```
 Farming-Agriculture-Assistant/
-️
-🗄️ public/                 # Static assets
-📌 css/                # Stylesheets
-📊 js/                 # Client-side JS
+|
+├── images/
+│   └── soil.png
+│   └── weather.png
+|
+├── models/                 # Mongoose schemas
+│   ├── invoice.js
+│
+├── public/                 # Static files
+│   └── app.js
+│   └── css/
+│       ├── crop.css
+│       ├── home.css
+│       ├── show.css
+│       ├── weather.css
+│
+├── server/
+│   └── index.js            # Main server entry point
+|
+├── views/                  # EJS templates
+│   ├── crop.ejs
+│   ├── home.ejs
+│   ├── show.ejs
+│   ├── weather.ejs
+│
+├── .env                    # Environment variables (ignored in git)
+├── .gitignore              # Files/folders excluded from Git
+├── LICENSE
+├──package-lock.json        # Auto-generated lockfile for exact dependency versions
+├── package.json            # Project metadata and dependencies
+└── README.md
 
-🚦 server/                 # Server logic
-🔢 index.js            # Express app entry point
-
-📄 views/                  # EJS templates & optional PDFs
-🔢 crops.pdf
-
-.env                    # Environment variables
-package-lock.json       # Auto-generated lockfile for exact dependency versions
-package.json            # Project metadata and dependencies
-README.md               # You're reading it!
 ```
 
 ---
